@@ -168,8 +168,8 @@ func TestAddSystemRootLabel(t *testing.T) {
 	}{
 		{
 			mounts: []*mount.Info{
-				&mount.Info{Source: "/dev/sda1", Mountpoint: "/foo"},
-				&mount.Info{Source: "/dev/sdb1", Mountpoint: "/"},
+				{Source: "/dev/sda1", Mountpoint: "/foo"},
+				{Source: "/dev/sdb1", Mountpoint: "/"},
 			},
 			expected: "/dev/sdb1",
 		},
@@ -323,7 +323,7 @@ func TestAddDockerImagesLabel(t *testing.T) {
 			driverStatus: `[["Pool Name", "vg_vagrant-docker--pool"]]`,
 			dmsetupTable: "0 53870592 thin-pool 253:2 253:3 1024 0 1 skip_block_zeroing",
 			mounts: []*mount.Info{
-				&mount.Info{
+				{
 					Source:     "/dev/mapper/vg_vagrant-lv_root",
 					Mountpoint: "/",
 					Fstype:     "devicemapper",
@@ -342,12 +342,12 @@ func TestAddDockerImagesLabel(t *testing.T) {
 			driver:       "devicemapper",
 			driverStatus: `[["Data loop file","/var/lib/docker/devicemapper/devicemapper/data"]]`,
 			mounts: []*mount.Info{
-				&mount.Info{
+				{
 					Source:     "/dev/mapper/vg_vagrant-lv_root",
 					Mountpoint: "/",
 					Fstype:     "devicemapper",
 				},
-				&mount.Info{
+				{
 					Source:     "/dev/sdb1",
 					Mountpoint: "/var/lib/docker/devicemapper",
 				},
@@ -357,17 +357,17 @@ func TestAddDockerImagesLabel(t *testing.T) {
 		{
 			name: "multiple mounts - innermost check",
 			mounts: []*mount.Info{
-				&mount.Info{
+				{
 					Source:     "/dev/sda1",
 					Mountpoint: "/",
 					Fstype:     "ext4",
 				},
-				&mount.Info{
+				{
 					Source:     "/dev/sdb1",
 					Mountpoint: "/var/lib/docker",
 					Fstype:     "ext4",
 				},
-				&mount.Info{
+				{
 					Source:     "/dev/sdb2",
 					Mountpoint: "/var/lib/docker/btrfs",
 					Fstype:     "btrfs",
@@ -378,12 +378,12 @@ func TestAddDockerImagesLabel(t *testing.T) {
 		{
 			name: "root fs inside container, docker-images bindmount",
 			mounts: []*mount.Info{
-				&mount.Info{
+				{
 					Source:     "overlay",
 					Mountpoint: "/",
 					Fstype:     "overlay",
 				},
-				&mount.Info{
+				{
 					Source:     "/dev/sda1",
 					Mountpoint: "/var/lib/docker",
 					Fstype:     "ext4",
